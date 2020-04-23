@@ -17,7 +17,7 @@
 	<div align="center">
 		<h1>EMPLOYEE MANAGEMENT PORTAL</h1>
 	</div>
-	<form:form action="edit_employee1" modelAttribute="employee">
+	<form:form action="./edit_employee1" method="POST" modelAttribute="employee">
 		<table>
 			<tr>
 				<td>Enter employee_id:</td>

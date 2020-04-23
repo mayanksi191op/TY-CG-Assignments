@@ -58,10 +58,10 @@
 	
 	
 	<!-- <h1>WELCOME</h1>
-	<a href="employee">homepage</a>
-	 -->
+	<a href="employee">homepage</a> -->
 	 
-	<h1>WELCOME</h1>
+	 
+	 <h1>WELCOME</h1>
 	<a href="login">login</a>
 	
 </body>

@@ -13,9 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -36,7 +38,7 @@ public class EmployeeController {
 	@Autowired
 	private EmployeeTable employeeTable;
 
-	@RequestMapping("employee")
+	@RequestMapping("/employee")
 	public String listEmployee(Model model) {
 		List<EmployeeTable> list = new ArrayList<EmployeeTable>();
 		list = employeeDao.get();
@@ -47,7 +49,7 @@ public class EmployeeController {
 		return "employee-list";
 	}
 
-	@RequestMapping("delete_emp/{employee_id}")
+	@RequestMapping("/delete_emp/{employee_id}")
 	public String deleteUser(@PathVariable int employee_id, Model model) {
 		System.out.println(employee_id);
 		if (employeeDao.delete(employee_id)) {
@@ -56,14 +58,14 @@ public class EmployeeController {
 		return "employee-list";
 	}
 
-	@RequestMapping("add_emp1")
+	@RequestMapping("/add_emp1")
 	public String redirectadd(Model model) {
 		model.addAttribute("employeetable", new EmployeeTable());
 		
 		return "employee-add";
 	}
 	
-	@RequestMapping("add_emp") 
+	@RequestMapping("/add_emp") 
 	public String addUser(@ModelAttribute("employeetable") EmployeeTable employeeTable, Model model) {
 		employeeDao.save(employeeTable);
 		return listEmployee(model);
@@ -74,17 +76,17 @@ public class EmployeeController {
 	
 	
 	
-	@RequestMapping("edit_employee/{employee_id}")
-	public String getSingleUser(@ModelAttribute("employee_id") int employee_id, Model model) {
+	@GetMapping("/edit_employee/{employee_id}")
+	public String getSingleUser(@ModelAttribute("employee_id") String employee_id, Model model) {
 		System.out.println("inside getSingleUser");
-		EmployeeTable employee = employeeDao.get(employee_id);
+		EmployeeTable employee = employeeDao.get(Integer.parseInt(employee_id));
 		model.addAttribute("employee", employee);
 		System.out.println(employee);
 		//model.addAttribute("employeetable", new EmployeeTable());
 		return "employee-edit";
 	}
 	
-	@PostMapping("edit_employee1")
+	@PostMapping("/edit_employee/edit_employee1")
 	public String employeeUpdate(@ModelAttribute("employee") EmployeeTable employeeTable, Model model) {
 		System.out.println("entered");
 		employeeDao.update(employeeTable);
@@ -97,7 +99,7 @@ public class EmployeeController {
 	
 	
 	
-	@RequestMapping("search-employee1")
+	@RequestMapping("/search-employee1")
 	public String displaySearch(Model model) {
 		model.addAttribute("employeeTable", new EmployeeTable());
 		return "employee-search";
@@ -122,18 +124,18 @@ public class EmployeeController {
 	private LoginDao loginDao;
 	
 	
-	@RequestMapping("login")
+	@RequestMapping("/login")
 	public String Login(Model model) {
 		model.addAttribute("employeetable", new EmployeeTable());
 		return "homepage";
 	}
 	
-	@RequestMapping("employee_redirect")
+	@RequestMapping("/employee_redirect")
 	public String employeeGo(Model model) {
 		return "employee";
 	}
 	
-	@RequestMapping("login1")
+	@RequestMapping("/login1")
 	public String LoginFunc(@ModelAttribute("employeetable") EmployeeTable employeeTable, Model model) {
 		//HttpSession session = request.getSession();
 		//EmployeeTable employeeTable = new EmployeeTable();
