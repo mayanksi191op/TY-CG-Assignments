@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.luv2code.springboot.cruddemo.entity.Products;
+import com.luv2code.springboot.cruddemo.entity.Register;
 import com.luv2code.springboot.cruddemo.services.ProductsServices;
 
 @RestController
@@ -21,6 +22,9 @@ public class ProductsRestController {
 	
 	@Autowired
 	private ProductsServices productsServices;
+	
+	
+	//Products
 	
 	@GetMapping("/products")
 	public List<Products> findAll() {
@@ -64,7 +68,47 @@ public class ProductsRestController {
 	}
 	
 	
+	//Register
+	
+	@GetMapping("/register")
+	public List<Register> findAllUsers() {
+		return productsServices.findAllUsers();
+	}
+	
+	@GetMapping("/register/{email}")
+	public Register getByIdUser(@PathVariable String email) {
+		Register register = productsServices.getByIdUser(email);
+		
+		if (register == null) {
+			throw new RuntimeException("email not found " + email);
+		}
+		return register;
+	}
+	
+	@DeleteMapping("/register/{email}")
+	public String deleteUsers(@PathVariable String email) {
+		Register register = productsServices.getByIdUser(email);
+		
+		if (register == null) {
+			throw new RuntimeException("email not found " + email);
+		}
 
-
+		productsServices.deleteUser(email);
+		return "deleted";
+	}
+	
+	@PutMapping("/register")
+	public String updateUsers(@RequestBody Register register) {
+		productsServices.saveUser(register);
+		return "updated";
+	}
+	
+	@PostMapping("/register")
+	public Register save(@RequestBody Register register) {
+		
+		productsServices.saveUser(register);
+		return register;
+	}
+	
 
 }
