@@ -1,4 +1,4 @@
-package com.luv2code.springboot.cruddemo.entity;
+package com.tyss.cg.springbootdatajpa.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -1,9 +1,9 @@
-package com.luv2code.springboot.cruddemo.services;
+package com.tyss.cg.springbootdatajpa.services;
 
 import java.util.List;
 
-import com.luv2code.springboot.cruddemo.entity.Products;
-import com.luv2code.springboot.cruddemo.entity.Register;
+import com.tyss.cg.springbootdatajpa.entity.Products;
+import com.tyss.cg.springbootdatajpa.entity.Register;
 
 public interface ProductsServices {
 	
@@ -15,7 +15,7 @@ public interface ProductsServices {
 	
 	public void deleteProducts(int productId);
 	
-	public void saveProduct(Products products);	
+	public boolean saveProduct(Products products);	
 	
 	
 	//Register
@@ -25,6 +25,8 @@ public interface ProductsServices {
 	
 	public void deleteUser(String email);
 	
-	public void saveUser(Register register);	
+	public boolean saveUser(Register register);	
+	
+	Register login(String email, String password);
 	
 }

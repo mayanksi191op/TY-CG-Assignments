@@ -1,8 +1,8 @@
-package com.luv2code.springboot.cruddemo.dao;
+package com.tyss.cg.springbootdatajpa.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.luv2code.springboot.cruddemo.entity.Products;
+import com.tyss.cg.springbootdatajpa.entity.Products;
 
 public interface ProductsRepository extends JpaRepository<Products, Integer>{
 

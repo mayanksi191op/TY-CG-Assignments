@@ -1,26 +1,30 @@
-package com.luv2code.springboot.cruddemo.services;
+package com.tyss.cg.springbootdatajpa.services;
 
 import java.util.List;
 import java.util.Optional;
 
+import javax.management.RuntimeErrorException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.luv2code.springboot.cruddemo.dao.ProductsRepository;
-import com.luv2code.springboot.cruddemo.dao.RegisterRepository;
-import com.luv2code.springboot.cruddemo.entity.Products;
-import com.luv2code.springboot.cruddemo.entity.Register;
+import com.tyss.cg.springbootdatajpa.dao.ProductsRepository;
+import com.tyss.cg.springbootdatajpa.dao.RegisterRepository;
+import com.tyss.cg.springbootdatajpa.entity.Products;
+import com.tyss.cg.springbootdatajpa.entity.Register;
 
 @Service
 public class ProductsServicesImplementation implements ProductsServices{
 	
-	//products
 	
 	@Autowired
 	private ProductsRepository productsRepository;
 	
 	@Autowired
 	private RegisterRepository registerRepository;
+	
+	
+	//products
 	
 	@Override
 	public List<Products> findAll() {
@@ -32,9 +36,10 @@ public class ProductsServicesImplementation implements ProductsServices{
 	public Products getById(int productId) {
 		Optional<Products> result = productsRepository.findById(productId);
 		
-		Products products;
+		Products products =null;
 		if (result.isPresent()) {
 			products = result.get();
+		
 		}else {
 			throw new RuntimeException("id not found " + productId);
 		}
@@ -47,8 +52,14 @@ public class ProductsServicesImplementation implements ProductsServices{
 	}
 	
 	@Override
-	public void saveProduct(Products products) {
-		productsRepository.save(products);
+	public boolean saveProduct(Products products) {
+		Products products2 = productsRepository.save(products);
+		
+		if (products2 == null) {
+			return false;
+		}else {
+			return true;
+		}
 	}
 
 	
@@ -67,6 +78,7 @@ public class ProductsServicesImplementation implements ProductsServices{
 		Register register;
 		if (result.isPresent()) {
 			register = result.get();
+			
 		} else {
 			throw new RuntimeException("email not found " + email);
 		}
@@ -79,7 +91,17 @@ public class ProductsServicesImplementation implements ProductsServices{
 	}
 
 	@Override
-	public void saveUser(Register register) {
-		registerRepository.save(register);
+	public boolean saveUser(Register register) {
+		Register register2 = registerRepository.save(register);
+		if (register2 == null) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	@Override
+	public Register login(String email, String password) {
+		return registerRepository.login(email, password);
 	}
 }
